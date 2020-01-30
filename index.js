@@ -26,19 +26,60 @@ let makeObjectForPlay = (ele1, ele2, ele3, ele4) => {
         document.getElementById(ele4).style.backgroundColor = 'red'
     }
     // rotate the piece
+    let myLocalCounter = 0
     document.addEventListener('keydown', (ev) => {
-        // if the key is the up arrow
+        console.log(myLocalCounter)
+            // if the key is the up arrow
         if (ev.keyCode === 38) {
-            if (!myTakenSpaces.includes(ele3)) {
-                document.getElementById(ele1).style.backgroundColor = 'black'
-                document.getElementById(ele2).style.backgroundColor = 'black'
-                document.getElementById(ele3).style.backgroundColor = 'black'
-                document.getElementById(ele4).style.backgroundColor = 'black' 
-                ele1 -= 13
-                ele2 += 1
-                ele3 = ele4
-                ele4 -= 1
-                createPiece(ele1, ele2, ele3, ele4)
+            ev.preventDefault()
+            if (myLocalCounter === 0) {
+                if (!myTakenSpaces.includes(ele3)) {
+                    document.getElementById(ele1).style.backgroundColor = 'black'
+                    document.getElementById(ele2).style.backgroundColor = 'black'
+                    document.getElementById(ele3).style.backgroundColor = 'black'
+                    document.getElementById(ele4).style.backgroundColor = 'black' 
+                    ele4 = ele2
+                    ele2 = ele3-15
+                    ele1 = ele3-30
+                    createPiece(ele1, ele2, ele3, ele4)
+                }
+                myLocalCounter++
+            } else if (myLocalCounter === 1) {
+                if (!myTakenSpaces.includes(ele3)) {
+                    document.getElementById(ele1).style.backgroundColor = 'black'
+                    document.getElementById(ele2).style.backgroundColor = 'black'
+                    document.getElementById(ele3).style.backgroundColor = 'black'
+                    document.getElementById(ele4).style.backgroundColor = 'black' 
+                    ele4 = ele2
+                    ele2 = ele3+1
+                    ele1 = ele3+2
+                    createPiece(ele1, ele2, ele3, ele4)
+                }
+                myLocalCounter++
+            } else if (myLocalCounter === 2) {
+                if (!myTakenSpaces.includes(ele3)) {
+                    document.getElementById(ele1).style.backgroundColor = 'black'
+                    document.getElementById(ele2).style.backgroundColor = 'black'
+                    document.getElementById(ele3).style.backgroundColor = 'black'
+                    document.getElementById(ele4).style.backgroundColor = 'black' 
+                    ele4 = ele2
+                    ele2 = ele3+15
+                    ele1 = ele3+30
+                    createPiece(ele1, ele2, ele3, ele4)
+                }
+                myLocalCounter++
+            } else if (myLocalCounter === 3) {
+                if (!myTakenSpaces.includes(ele3)) {
+                    document.getElementById(ele1).style.backgroundColor = 'black'
+                    document.getElementById(ele2).style.backgroundColor = 'black'
+                    document.getElementById(ele3).style.backgroundColor = 'black'
+                    document.getElementById(ele4).style.backgroundColor = 'black' 
+                    ele2 = ele3-1
+                    ele1 = ele3-2
+                    ele4 = ele3+15
+                    createPiece(ele1, ele2, ele3, ele4)
+                }
+                myLocalCounter = 0
             }
         }
     })
@@ -88,7 +129,7 @@ let makeObjectForPlay = (ele1, ele2, ele3, ele4) => {
     })
     let movePiece = setInterval(() => {
             // moving the object down every second
-        if (ele4+15 < 300 && !myTakenSpaces.includes(ele4+15)) {
+        if (ele4+15 < 300 && ele3+15 < 300 && ele2+15 < 300 && ele1+15 < 300 && !myTakenSpaces.includes(ele4+15) && !myTakenSpaces.includes(ele1+15) && !myTakenSpaces.includes(ele2+15) && !myTakenSpaces.includes(ele3+15)) {
             createPiece(ele1, ele2, ele3, ele4)
             document.getElementById(ele1).style.backgroundColor = 'black'
             document.getElementById(ele2).style.backgroundColor = 'black'
@@ -100,7 +141,6 @@ let makeObjectForPlay = (ele1, ele2, ele3, ele4) => {
             ele4 += 15
             createPiece(ele1, ele2, ele3, ele4)
         } else {
-            console.log('in the ele block')
             myTakenSpaces.push(ele1,ele2,ele3,ele4)
             clearInterval(movePiece)
         }
